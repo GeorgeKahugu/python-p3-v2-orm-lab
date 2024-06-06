@@ -118,31 +118,58 @@ class TestReview:
                 (review.id, review.year, review.summary, review.employee_id) ==
                 (review.id, 2023, "Excellent Python skills!", employee.id))
 
+    # def test_instance_from_db(self):
+    #     '''contains method "instance_from_db()" that takes a db row and creates an Review instance.'''
+
+    #     Department.create_table()
+    #     department = Department.create("Payroll", "Building A, 5th Floor")
+
+    #     Employee.create_table()
+    #     employee = Employee.create("Raha", "Accountant", department.id)
+
+    #     Review.create_table()
+    #     sql = """
+    #         INSERT INTO reviews (year, summary, employee_id)
+    #         VALUES (2022, 'Amazing coder!', ?)
+    #     """
+    #     CURSOR.execute(sql, (employee.id,))
+
+    #     sql = """
+    #         SELECT * FROM reviews
+    #     """
+    #     row = CURSOR.execute(sql).fetchone()
+
+    #     review = Review.instance_from_db(row)
+    #     assert ((row[0], row[1], row[2], row[3]) ==
+    #             (review.id, review.year, review.summary, review.employee_id) ==
+    #             (review.id, 2022, "Amazing coder!", employee.id))
+
     def test_instance_from_db(self):
         '''contains method "instance_from_db()" that takes a db row and creates an Review instance.'''
-
+    
         Department.create_table()
         department = Department.create("Payroll", "Building A, 5th Floor")
-
+        
         Employee.create_table()
         employee = Employee.create("Raha", "Accountant", department.id)
-
+        
         Review.create_table()
         sql = """
             INSERT INTO reviews (year, summary, employee_id)
             VALUES (2022, 'Amazing coder!', ?)
         """
         CURSOR.execute(sql, (employee.id,))
-
+        
         sql = """
             SELECT * FROM reviews
         """
         row = CURSOR.execute(sql).fetchone()
-
+    
         review = Review.instance_from_db(row)
         assert ((row[0], row[1], row[2], row[3]) ==
                 (review.id, review.year, review.summary, review.employee_id) ==
-                (review.id, 2022, "Amazing coder!", employee.id))
+                (review.id, 2022, "Amazing coder!", employee.id))  
+
 
     def test_finds_by_id(self):
         '''contains method "find_by_id()" that returns a Review instance corresponding to its db row retrieved by id.'''
